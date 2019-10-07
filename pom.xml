@@ -21,7 +21,26 @@
         <mybatis-plus.version>3.1.0</mybatis-plus.version>
         <lombok.version>1.18.8</lombok.version>
         <mysql.version>8.0.11</mysql.version>
+        <nacos-config-spring-cloud-start.version>0.2.1.RELEASE</nacos-config-spring-cloud-start.version>
     </properties>
+
+    <!-- 配置发布环境 -->
+    <profiles>
+        <!-- 本地开发环境(Development) -->
+        <profile>
+            <id>Development</id>
+            <properties>
+                <!-- 环境配置 -->
+                <profiles.active>dev</profiles.active>
+                <!-- 配置中心nacos地址 -->
+                <nacos.address>39.105.154.216:8848</nacos.address>
+            </properties>
+            <!-- 默认激活本环境 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -31,6 +50,25 @@
             <type>pom</type>
             <scope>import</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>${nacos-config-spring-cloud-start.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>0.2.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
@@ -38,6 +76,7 @@
             <type>pom</type>
             <scope>import</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
@@ -45,6 +84,7 @@
             <type>pom</type>
             <scope>import</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -56,24 +96,24 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!--测试依赖-->
+        <!--测试-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                    <version>${mybatis-plus.version}</version>
+                </dependency>-->
         <!--mysql驱动-->
-<!--        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.version}</version>
+                </dependency>-->
     </dependencies>
 
     <build>
@@ -83,6 +123,15 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <!--如果不设置resource 会导致application.yaml中的@@找不到pom文件中的配置-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+
 
 </project>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Title: HelloWorldContrller
  * @ProjectName sage-mall
  * @Description:
- * @date 2019/10/8 00080:50
+ * @date 2019/10/8 0:50
  */
 @RestController
 // autorefresh of configuration updates

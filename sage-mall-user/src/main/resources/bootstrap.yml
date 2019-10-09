@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: user-config
+  cloud:
+    nacos:
+      discovery:
+        #服务注册
+        register-enabled: true
+        server-addr: @nacos.address@
+        weight: 1
+      config:
+        #配置中心
+        server-addr: @nacos.address@
+        file-extension: yaml
+
+  datasource:
+    username: root
+    password: 199629
+    url: jdbc:mysql://39.105.154.216:3306/sage_mall?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+

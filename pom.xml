@@ -25,10 +25,15 @@
     <properties>
         <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
+        <nacos-config-spring-cloud-start.version>0.2.1.RELEASE</nacos-config-spring-cloud-start.version>
+        <alibaba-nacos-discovery.version>0.2.2.RELEASE</alibaba-nacos-discovery.version>
         <mybatis-plus.version>3.1.0</mybatis-plus.version>
         <lombok.version>1.18.8</lombok.version>
         <mysql.version>8.0.11</mysql.version>
-        <nacos-config-spring-cloud-start.version>0.2.1.RELEASE</nacos-config-spring-cloud-start.version>
+        <druid-boot-starter.version>1.1.13</druid-boot-starter.version>
+        <velocity-engine.version>2.0</velocity-engine.version>
+        <freemarker.version>2.3.23</freemarker.version>
     </properties>
 
     <!-- 配置环境 -->
@@ -54,7 +59,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -68,7 +73,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                <version>0.2.2.RELEASE</version>
+                <version>${alibaba-nacos-discovery.version}</version>
             </dependency>
 
             <dependency>
@@ -99,13 +104,14 @@
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <!--测试-->
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -117,8 +123,28 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
+            <!--mybatisplus自动生成-->
+            <!-- velocity 模板引擎, 默认 -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity-engine.version}</version>
+            </dependency>
+            <!--freemarker 模板引擎-->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+            <!-- alibaba的druid数据库连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-boot-starter.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -126,7 +152,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-
         <!--如果不设置resource 会导致application.yaml中的@@找不到pom文件中的配置-->
         <resources>
             <resource>

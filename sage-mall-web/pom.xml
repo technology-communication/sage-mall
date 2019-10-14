@@ -9,13 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sage-mall-user</artifactId>
+    <artifactId>sage-mall-web</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.dls</groupId>
-            <artifactId>sage-mall-common-service</artifactId>
+            <artifactId>sage-mall-common-web</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 

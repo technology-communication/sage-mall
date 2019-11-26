@@ -10,6 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sage-mall-product</artifactId>
-
+    <version>${sage-mall-product.version}</version>
 
 </project>

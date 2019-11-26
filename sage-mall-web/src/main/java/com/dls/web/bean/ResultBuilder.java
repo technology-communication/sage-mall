@@ -1,4 +1,4 @@
-package com.dls.common.bean;
+package com.dls.web.bean;
 
 /**
  * @author 张金行

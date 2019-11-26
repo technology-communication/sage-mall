@@ -1,6 +1,13 @@
 spring:
-  security:
-    user:
-      name: test
-      password: test
-      roles: test
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 2000
+    database: 0
+  messages:
+    basename: i18n/message
+    encoding: GBK
+jwt:
+  secret: zlkj
+  expiration: 18000000
+  header: Authorization

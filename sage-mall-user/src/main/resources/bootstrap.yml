@@ -2,9 +2,7 @@ spring:
   cloud:
     nacos:
       config:
-        #配置中心
         server-addr: @nacos.address@
         file-extension: yaml
       discovery:
-        #服务注册
         server-addr: @nacos.address@

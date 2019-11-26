@@ -14,20 +14,13 @@
         <module>sage-mall-product</module>
         <module>sage-mall-order</module>
         <module>sage-mall-web</module>
+        <module>sage-mall-dependencies</module>
     </modules>
 
     <properties>
-        <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
-        <nacos-config-spring-cloud-start.version>0.2.1.RELEASE</nacos-config-spring-cloud-start.version>
-        <alibaba-nacos-discovery.version>0.2.1.RELEASE</alibaba-nacos-discovery.version>
-        <mybatis-plus.version>3.1.0</mybatis-plus.version>
-        <lombok.version>1.18.8</lombok.version>
-        <mysql.version>8.0.11</mysql.version>
-        <druid-boot-starter.version>1.1.13</druid-boot-starter.version>
-        <velocity-engine.version>2.0</velocity-engine.version>
-        <freemarker.version>2.3.23</freemarker.version>
         <nacos-client.version>0.6.2</nacos-client.version>
     </properties>
 
@@ -35,12 +28,19 @@
     <profiles>
         <!-- 本地开发环境(Development) -->
         <profile>
-            <id>Development</id>
+            <id>dev</id>
             <properties>
                 <!-- 环境配置 -->
                 <profiles.active>dev</profiles.active>
                 <!-- 配置nacos地址 -->
                 <nacos.address>39.105.154.216:8848</nacos.address>
+                <!-- 子项目版本号 -->
+                <sage-mall-dependencies.version>1.0-SNAPSHOT</sage-mall-dependencies.version>
+                <sage-mall-common.version>1.0-SNAPSHOT</sage-mall-common.version>
+                <sage-mall-order.version>1.0-SNAPSHOT</sage-mall-order.version>
+                <sage-mall-product.version>1.0-SNAPSHOT</sage-mall-product.version>
+                <sage-mall-user.version>1.0-SNAPSHOT</sage-mall-user.version>
+                <sage-mall-web.version>1.0-SNAPSHOT</sage-mall-web.version>
             </properties>
             <!-- 默认激活本环境 -->
             <activation>
@@ -74,68 +74,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                <version>${nacos-config-spring-cloud-start.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                <version>${alibaba-nacos-discovery.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.alibaba.nacos</groupId>
-                        <artifactId>nacos-client</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
+            <!--如果定义在sage-mall-dependencies中将会导致sage-mall-web中的版本为spring-cloud-alibaba-dependencies所定义版本-->
             <dependency>
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos-client.version}</version>
-            </dependency>
-
-            <!--Lombok-->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <!--mysql驱动-->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
-            <!--mybatisplus自动生成-->
-            <!-- velocity 模板引擎, 默认 -->
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity-engine-core</artifactId>
-                <version>${velocity-engine.version}</version>
-            </dependency>
-            <!--freemarker 模板引擎-->
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>${freemarker.version}</version>
-            </dependency>
-            <!-- alibaba的druid数据库连接池-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -143,8 +86,13 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
         </plugins>
         <!--如果不设置resource 会导致application.yaml中的@@找不到pom文件中的配置-->

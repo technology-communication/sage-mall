@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url:  jdbc:mysql://rm-2zec58q7w412s3yv7bo.mysql.rds.aliyuncs.com:3306/sage_mall?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: sage_mall_admin
+    password: hhxxttxs74563
+mybatis:
+  type-aliases-package: com.dls.product.entity
+  mapper-locations: classpath:mapper/*Mapper.xml

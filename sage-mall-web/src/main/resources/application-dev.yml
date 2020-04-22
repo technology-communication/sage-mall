@@ -1,13 +1,27 @@
 spring:
   redis:
-    host: localhost
+
+    host: 59.110.63.47
     port: 6379
-    timeout: 2000
+    timeout: 0
     database: 0
+    password: node1199629
+    lettuce:
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: 8
+        max-wait: 1ms
+      shutdown-timeout: 100ms
+
+  elasticsearch:
+      rest:
+        uris:  [59.110.63.47:9200]
+
   messages:
     basename: i18n/message
     encoding: GBK
 jwt:
-  secret: zlkj
+  secret: dls
   expiration: 18000000
   header: Authorization

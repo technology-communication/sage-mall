@@ -12,11 +12,6 @@
     <artifactId>sage-mall-common-service</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.dls</groupId>
-            <artifactId>sage-mall-common-bean</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <!--mybaits-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>

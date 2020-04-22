@@ -2,6 +2,6 @@ server:
   port: 8080
 spring:
   application:
-    name: sage-web-config
+    name: sage-web
   profiles:
     active: @profiles.active@

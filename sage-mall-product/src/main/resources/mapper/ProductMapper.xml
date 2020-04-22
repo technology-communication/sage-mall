@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dls.product.mapper.ProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dls.product.entity.Product">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="price" property="price" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, price
+    </sql>
+
+    <select id="health" resultMap="BaseResultMap">
+        select * from spu_product where id = 1
+    </select>
+
+    <insert id="insert">
+        insert spu_product values (#{id},#{name},#{price})
+    </insert>
+
+</mapper>

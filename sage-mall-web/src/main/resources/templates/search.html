@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<!-- thymeleaf模板必须引入 -->
+<!DOCTYPE HTML>
+<!-- thymeleaf模板必须引入 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>搜索页面</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+<form th:action="@{/search}" method="post" >
+    <input type="text" name="keyword" />
+    <button type="submit" >提交</button>
+    <!-- ${session?.SPRING_SECURITY_LAST_EXCEPTION?.message} security自带的错误提示信息 -->
+    <!--/*@thymesVar id="SPRING_SECURITY_LAST_EXCEPTION" type=""*/-->
+    <p th:if="${param.error}" th:text="${session?.SPRING_SECURITY_LAST_EXCEPTION?.message}" ></p>
+</form>
+</body>
+</html>

@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    nacos:
-      config:
-        server-addr: @nacos.address@
-        file-extension: yaml
-      discovery:
-        server-addr: @nacos.address@

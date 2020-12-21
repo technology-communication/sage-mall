@@ -1,6 +1,9 @@
+server:
+  port: 8081
 spring:
+  application:
+    name: sage-mall
   redis:
-
     host: 59.110.63.47
     port: 6379
     timeout: 0
@@ -13,14 +16,20 @@ spring:
         max-active: 8
         max-wait: 1ms
       shutdown-timeout: 100ms
-
   elasticsearch:
-      rest:
-        uris:  [59.110.63.47:9200]
-
+    rest:
+      uris: [ 59.110.63.47:9200 ]
   messages:
     basename: i18n/message
     encoding: GBK
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://sage-mall.mysql.rds.aliyuncs.com:3306/sage_mall?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: sage_mall_admin
+    password: hhxxttxs74563
+mybatis:
+  type-aliases-package: com.dls.product.entity
+  mapper-locations: classpath:mapper/*Mapper.xml
 jwt:
   secret: dls
   expiration: 18000000

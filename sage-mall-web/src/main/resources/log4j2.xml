@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="30" strict="true"
+               schema="Log4J-V2.2.xsd">
+    <properties>
+        <!--定义日志储存文件目录-->
+        <property name="LOG_HOME">${sys:LOG_ROOT:-logs}</property>
+        <property name="LOG_PREFIX">knowledge</property>
+        <!--定义日志输出格式-->
+        <property name="LOG_PATTERN">%-d{yyyy-MM-dd HH:mm:ss.SSS}|%-6p|%X{logId}|%pid|%t|%l|%m%n</property>
+        <property name="LEVEL">info</property>
+    </properties>
+    <Appenders>
+        <!--这个输出控制台的配置-->
+        <console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </console>
+        <!--所有日志输出-->
+        <RollingRandomAccessFile name="DebugFile"
+                                 fileName="${LOG_HOME}/${LOG_PREFIX}-debug.log"
+                                 filePattern="${LOG_HOME}/${LOG_PREFIX}-%d{yyyy-MM-dd}-%i.debug.log.gz">
+            <Filters>
+                <!--如果是INFO以上级别拒绝-->
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!--如果是DEBUG级别输出-->
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <!--单个文件大小-->
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <!--保存日志文件个数 -->
+            <DefaultRolloverStrategy max="30">
+                <Delete basePath="${LOG_HOME}/" maxDepth="2">
+                    <IfFileName glob="*.log*"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <!--Info级别日志输出-->
+        <RollingRandomAccessFile name="InfoFile"
+                                 fileName="${LOG_HOME}/${LOG_PREFIX}-info.log"
+                                 filePattern="${LOG_HOME}/${LOG_PREFIX}-%d{yyyy-MM-dd}-%i.info.log.gz">
+            <Filters>
+                <!--如果是WARN以上级别拒绝-->
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!--如果是INFO级别输出-->
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <!--单个文件大小-->
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <!--保存日志文件个数 -->
+            <DefaultRolloverStrategy max="30">
+                <Delete basePath="${LOG_HOME}/" maxDepth="2">
+                    <IfFileName glob="*.log*"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <!--warn级别日志输出-->
+        <RollingRandomAccessFile name="WarnFile"
+                                 fileName="${LOG_HOME}/${LOG_PREFIX}-warn.log"
+                                 filePattern="${LOG_HOME}/${LOG_PREFIX}-%d{yyyy-MM-dd}-%i.warn.log.gz">
+
+            <Filters>
+                <!--如果是ERROR以上级别拒绝-->
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!--如果是INFO级别输出-->
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30">
+                <Delete basePath="${LOG_HOME}/" maxDepth="2">
+                    <IfFileName glob="*.log*"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <!--Error级别日志输出-->
+        <RollingRandomAccessFile name="ErrorFile"
+                                 fileName="${LOG_HOME}/${LOG_PREFIX}-error.log"
+                                 filePattern="${LOG_HOME}/${LOG_PREFIX}-%d{yyyy-MM-dd}-%i.error.log.gz">
+            <Filters>
+                <!--如果是ERROR以上级别拒绝-->
+                <!--<ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+                <!--如果是INFO级别输出-->
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30">
+                <Delete basePath="${LOG_HOME}/" maxDepth="2">
+                    <IfFileName glob="*.log*"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <!--过滤掉无用的debug信息-->
+        <Logger name="org.apache" level="ERROR" additivity="false">
+            <AppenderRef ref="DebugFile"/>
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="WarnFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="io.netty" level="ERROR" additivity="false">
+            <AppenderRef ref="DebugFile"/>
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="WarnFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+        <Root level="${LEVEL}">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DebugFile"/>
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="WarnFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

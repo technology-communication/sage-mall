@@ -15,18 +15,6 @@
 
     <modules>
         <module>sage-mall-common-service</module>
-        <module>sage-mall-common-web</module>
     </modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.dls</groupId>
-                <artifactId>sage-mall-dependencies</artifactId>
-                <version>${sage-mall-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

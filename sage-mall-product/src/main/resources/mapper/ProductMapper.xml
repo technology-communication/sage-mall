@@ -3,7 +3,7 @@
 <mapper namespace="com.dls.product.mapper.ProductMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dls.product.entity.Product">
+    <resultMap id="BaseResultMap" type="com.dls.product.entity.mysql.Product">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="price" property="price" />
@@ -14,12 +14,8 @@
         id, name, price
     </sql>
 
-    <select id="health" resultMap="BaseResultMap">
-        select * from spu_product where id = 1
-    </select>
-
-    <insert id="insert">
-        insert spu_product values (#{id},#{name},#{price})
+    <insert id="insert" parameterType="com.dls.product.entity.mysql.Product">
+        insert into spu_product(id,name,price) values(#{id},#{name},#{price})
     </insert>
 
 </mapper>

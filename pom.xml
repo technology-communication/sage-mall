@@ -4,6 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.10.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <groupId>com.dls</groupId>
     <artifactId>sage-mall</artifactId>
     <packaging>pom</packaging>
@@ -14,12 +21,19 @@
         <module>sage-mall-product</module>
         <module>sage-mall-order</module>
         <module>sage-mall-web</module>
-        <module>sage-mall-dependencies</module>
     </modules>
 
     <properties>
-        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
+        <!--环境配置-->
+        <mavenBuildTimestamp>${maven.build.timestamp}</mavenBuildTimestamp>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <!--框架版本-->
+        <spring-boot.version>2.2.10.RELEASE</spring-boot.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+        <mybatis-plus.version>3.1.0</mybatis-plus.version>
+        <druid-boot-starter.version>1.1.13</druid-boot-starter.version>
+        <velocity-engine.version>2.0</velocity-engine.version>
+        <freemarker.version>2.3.30</freemarker.version>
     </properties>
 
     <!-- 配置环境 -->
@@ -36,7 +50,7 @@
                 <sage-mall-dependencies.version>1.0-SNAPSHOT</sage-mall-dependencies.version>
                 <sage-mall-common.version>1.0-SNAPSHOT</sage-mall-common.version>
                 <sage-mall-order.version>1.0-SNAPSHOT</sage-mall-order.version>
-                <sage-mall-product.version>1.0-SNAPSHOT</sage-mall-product.version>
+                <sage-mall-productDocument.version>1.0-SNAPSHOT</sage-mall-productDocument.version>
                 <sage-mall-user.version>1.0-SNAPSHOT</sage-mall-user.version>
                 <sage-mall-web.version>1.0-SNAPSHOT</sage-mall-web.version>
             </properties>
@@ -50,18 +64,53 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- 默认的4.5.12导入有问题 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.13</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${nacos-config-spring-cloud-start.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${alibaba-nacos-discovery.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>nacos-client</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity-engine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -78,17 +127,6 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
         <!--如果不设置resource 会导致application.yaml中的@@找不到pom文件中的配置-->
         <resources>
             <resource>
@@ -96,6 +134,15 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.dls.web.WebApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

@@ -1,6 +1,6 @@
 #!/bin/bash
 source /etc/profile
-APP_NAME=knowledge
+APP_NAME=sage-mall
 PWDPATH=`dirname $0`
 CW_INSTALL_DIR=`cd $PWDPATH && cd ../.. && pwd`
 INSTALL_DIR=${CW_INSTALL_DIR}

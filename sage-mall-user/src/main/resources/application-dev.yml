@@ -1,19 +1,33 @@
+server:
+  port: 8081
 spring:
+  application:
+    name: sage-mall-user
+  elasticsearch:
+    rest:
+      uris: [ 59.110.63.47:9200 ]
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      username: root
-      password: 199629
-      url: jdbc:mysql://39.105.154.216:8066/sage_mall?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
       driver-class-name: com.mysql.cj.jdbc.Driver
-      filters: stat
-      minIdle: 1
-      pool-prepared-statements: true
-      max-open-prepared-statements: 20
-      test-on-return: false
-      test-on-borrow: false
-      test-while-idle: true
-      validation-query: select 'x'
-      min-evictable-idle-time-millis: 300000
-      time-between-eviction-runs-millis: 60000
-      max-active: 20
-      max-wait: 60000
+      url: jdbc:mysql://sage-mall.mysql.rds.aliyuncs.com:3306/sage_mall?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: sage_mall_admin
+      password: hhxxttxs74563
+mybatis:
+  type-aliases-package: com.dls.product.entity.mysql
+  mapper-locations: classpath:mapper/*Mapper.xml
+dubbo:
+  application:
+    id: sage-mall-user
+    version: 1.0.0
+    register-consumer: false
+  protocol:    #Dubbo 服务暴露的协议配置，其中子属性 name 为协议名称，port 为协议端口（ -1 表示自增端口，从 20880 开始）
+    name: dubbo
+    port: -1  #dubbo协议缺省端口为20880，rmi协议缺省端口为1099，http和hessian协议缺省端口为80；如果没有配置port，则自动采用默认端口，如果配置为-1，则会分配一个没有被占用的端口。Dubbo 2.4.0+，分配的端口在协议缺省端口的基础上增长，确保端口段可控
+  registry:
+    #其中前缀spring-cloud说明：挂载到 Spring Cloud注册中心
+    address: spring-cloud://47.95.201.250:8848
+  cloud:
+    subscribed-services: sage-mall-user
+  scan:
+    base-packages: com.dls.commom.service

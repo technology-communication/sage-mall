@@ -2,7 +2,7 @@ package com.dls.web.controller;
 
 
 import com.dls.commom.dto.ProductDTO;
-import com.dls.service.ProductService;
+import com.dls.commom.service.ProductService;
 import com.dls.web.vo.ProductVO;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
@@ -24,7 +24,7 @@ public class ProductController {
     @Reference
     private ProductService productService;
 
-    @GetMapping("/login.html")
+    @GetMapping("/login")
     public String loginPage() {
         return "login";
     }

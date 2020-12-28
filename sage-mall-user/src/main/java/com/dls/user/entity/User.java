@@ -1,7 +1,10 @@
-package com.dls.product.entity.mysql;
+package com.dls.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,10 +20,10 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("spu_product")
-public class Product implements Serializable {
+@TableName("user")
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
-    private String name;
-    private BigDecimal price;
+    private String username;
+    private String password;
 }

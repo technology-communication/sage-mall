@@ -8,7 +8,7 @@ APP_HOME="${INSTALL_DIR}/${APP_NAME}"
 APP_LOG_DIR="${LOG_DIR}/${APP_NAME}"
 COMM_HOME=${APP_HOME}
 cd $COMM_HOME
-MAINCLASS="com.cloudwise.knowledge.KnowledgeApplication"
+MAINCLASS="com.dls.web.WebApplication"
 start () {
     JVM_OPTS="
      -server
@@ -35,7 +35,7 @@ start () {
      -Dspring.config.location=conf/
     "
     export CLASSPATH=$JAVA_HOME/jre/lib/*:$JAVA_HOME/lib/*:$COMM_HOME/lib/*:$COMM_HOME/conf/*
-    export MAINCLASS="com.cloudwise.knowledge.KnowledgeApplication"
+    export MAINCLASS="com.dls.web.WebApplication"
     case $1 in
     -b )
         nohup java $JVM_OPTS -cp $CLASSPATH $MAINCLASS  --logging.config=conf/log4j2.xml --spring.cloud.nacos.discovery.enabled=true 1>/dev/null 2>&1 &

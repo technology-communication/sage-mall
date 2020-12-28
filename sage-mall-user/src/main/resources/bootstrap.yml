@@ -1,8 +1,16 @@
 spring:
+  profiles:
+    active: dev
   cloud:
     nacos:
       config:
-        server-addr: @nacos.address@
+        server-addr: http://47.95.201.250:8848
+        namespace: c9dcdaf9-b1a0-492f-b15f-ef70c1810ec1
+        password: nacos
+        username: nacos
+        group: DEFAULT_GROUP
         file-extension: yaml
       discovery:
-        server-addr: @nacos.address@
+        server-addr: http://47.95.201.250:8848
+        namespace: c9dcdaf9-b1a0-492f-b15f-ef70c1810ec1
+        enabled: true

@@ -1,7 +1,0 @@
-server:
-  port: 8081
-spring:
-  application:
-    name: user-config
-  profiles:
-    active: @profiles.active@

@@ -1,14 +1,12 @@
 package com.dls.product.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dls.commom.dto.ProductDTO;
 import com.dls.product.entity.es.ProductDocument;
 import com.dls.product.entity.mysql.Product;
 import com.dls.product.mapper.ProductMapper;
 import com.dls.product.repository.ProductRepository;
-import com.dls.service.ProductService;
-import com.google.common.collect.Lists;
+import com.dls.commom.service.ProductService;
 import org.apache.dubbo.config.annotation.Service;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.FuzzyQueryBuilder;

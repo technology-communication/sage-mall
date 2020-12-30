@@ -2,6 +2,7 @@ package com.dls.commom.service;
 
 import com.dls.commom.dto.UserDTO;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,8 +11,10 @@ import java.util.Set;
  * @date 2020/12/28 4:55 下午
  * @desc
  */
-public interface UserService {
+public interface UserCenterService {
+    boolean save(UserDTO userDTO);
+
     UserDTO findByUsername(String username);
 
-    Set<String> findPermissions(String username);
+    List<String> findPermissions(Long userId);
 }

@@ -1,5 +1,6 @@
 package com.dls.user.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * @author 张金行
@@ -21,11 +21,13 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("user")
-public class User implements Serializable {
+@TableName("user_role")
+public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
     @TableId
     private Long id;
-    private String username;
-    private String password;
+    @TableField("user_id")
+    private Long userId;
+    @TableField("role_id")
+    private Long roleId;
 }

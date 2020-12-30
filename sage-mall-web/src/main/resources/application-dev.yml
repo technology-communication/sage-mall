@@ -8,7 +8,7 @@ spring:
   redis:
     host: 59.110.63.47
     port: 6379
-    timeout: 0
+    timeout: 5000
     database: 0
     password: node1199629
     lettuce:

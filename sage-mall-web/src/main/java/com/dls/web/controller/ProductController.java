@@ -8,6 +8,7 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/12/21 2:30 下午
  * @desc
  */
+
 @Controller
 public class ProductController {
     @Reference
@@ -39,6 +41,7 @@ public class ProductController {
     }
 
     @PostMapping("/product")
+    @PreAuthorize("hasRole('admin')")
     @ResponseBody
     public ResponseEntity<Object> save(@RequestBody ProductVO product) {
         ProductDTO productDTO = new ProductDTO();

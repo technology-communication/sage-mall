@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,11 +42,11 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('ROLE_admin')")
     @ResponseBody
-    public ResponseEntity<Object> save(@RequestBody ProductVO product) {
+    public ResponseEntity<Object> save(@RequestBody @Validated ProductVO product) {
         ProductDTO productDTO = new ProductDTO();
-        BeanUtils.copyProperties(product,productDTO);
+        BeanUtils.copyProperties(product, productDTO);
         productService.save(productDTO);
         return ResponseEntity.ok().build();
     }

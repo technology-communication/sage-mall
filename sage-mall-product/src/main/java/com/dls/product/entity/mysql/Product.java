@@ -1,5 +1,6 @@
 package com.dls.product.entity.mysql;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
@@ -22,5 +23,5 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     private String title;
-    private BigDecimal price;
+    private String description;
 }

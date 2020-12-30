@@ -3,6 +3,7 @@ package com.dls.web.vo;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 /**
@@ -15,6 +16,8 @@ import java.math.BigDecimal;
 @Setter
 public class ProductVO {
     private Long id;
+    @NotBlank(message = "标题不能为空")
     private String title;
-    private BigDecimal price;
+    @NotBlank(message = "描述不能为空")
+    private String description;
 }

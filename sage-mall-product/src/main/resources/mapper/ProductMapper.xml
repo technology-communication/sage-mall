@@ -11,11 +11,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, price
+        id, title, desc
     </sql>
-
-    <insert id="insert" parameterType="com.dls.product.entity.mysql.Product">
-        insert into spu_product(id,name,price) values(#{id},#{name},#{price})
-    </insert>
 
 </mapper>

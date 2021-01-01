@@ -20,4 +20,8 @@ public class ProductVO {
     private String title;
     @NotBlank(message = "描述不能为空")
     private String description;
+    private Long brandId;
+    private Long categoryId;
+    private String comment;
 }
+

@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +36,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper,Product> imple
     private ElasticsearchRestTemplate elasticsearchTemplate;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ProductMapper productMapper;
 
     private final Pageable pageable = PageRequest.of(0, 10);
 
@@ -95,4 +97,53 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper,Product> imple
         }).collect(Collectors.toList());
         return new PageImpl<>(collect);
     }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        productMapper.delete(productId);
+    }
+
+    @Override
+    public int updateProduct(ProductDTO product) {
+        return productMapper.update(product);
+    }
+
+    @Override
+    public List<ProductDTO> getProductByTitle(String productTitle) {
+        List<Product> list = productMapper.getByTitle(productTitle);
+        List<ProductDTO> objects = new ArrayList<>();
+        for (Product product : list) {
+            ProductDTO productDTO = new ProductDTO();
+            BeanUtils.copyProperties(product,productDTO);
+            objects.add(productDTO);
+        }
+        return objects;
+    }
+
+    @Override
+    public ProductDTO getProductById(Long productId) {
+        Product product = productMapper.getById(productId);
+        ProductDTO productDTO = new ProductDTO();
+        BeanUtils.copyProperties(product,productDTO);
+        return productDTO;
+    }
+
+    @Override
+    public int addProduct(ProductDTO product) {
+        return productMapper.add(product);
+    }
+
+    @Override
+    public List<ProductDTO> findAllProduct() {
+        List<Product> list = productMapper.findAll();
+        List<ProductDTO> objects = new ArrayList<>();
+        for (Product product : list) {
+            ProductDTO productDTO = new ProductDTO();
+            BeanUtils.copyProperties(product,productDTO);
+            objects.add(productDTO);
+        }
+        return objects;
+    }
+
+
 }

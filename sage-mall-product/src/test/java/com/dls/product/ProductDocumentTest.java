@@ -31,7 +31,7 @@ public class ProductDocumentTest {
             Thread thread = new Thread(() -> {
                 for (int j = 0; j < 1000; j++) {
                     long id = productId.getAndIncrement();
-                    Product product3 = new Product(id, "product3", "");
+                    Product product3 = new Product();
                     productMapper.insert(product3);
                     log.info("id------>" + id);
                 }

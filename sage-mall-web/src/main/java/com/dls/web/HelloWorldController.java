@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 张金行
  * @Title: HelloWorldController
@@ -26,3 +29,5 @@ public class HelloWorldController {
         return ping;
     }
 }
+
+

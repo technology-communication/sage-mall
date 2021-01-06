@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * @author 张金行
@@ -21,11 +20,11 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("user")
-public class User implements Serializable {
+@TableName("role")
+public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     @TableId
     private Long id;
-    private String username;
-    private String password;
+    private String name;
+    private String desc;
 }

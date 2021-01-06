@@ -5,17 +5,41 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.dls.product.entity.mysql.Product">
         <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="price" property="price" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="brandId" property="brand_id"/>
+        <result column="categoryId" property="category_id"/>
+        <result column="comment" property="comment"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, price
+        id, title, description
     </sql>
 
-    <insert id="insert" parameterType="com.dls.product.entity.mysql.Product">
-        insert into spu_product(id,name,price) values(#{id},#{name},#{price})
+    <delete id="delete">
+        delete from spu where id = #{productId}
+    </delete>
+
+    <update id="update">
+        update spu set id =#{id},title=#{title},description=#{description} where id = #{id}
+    </update>
+
+    <select id="getByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select  id, title, description from spu where title = #{productTitle}
+    </select>
+
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select  id, title, description, brand_id, category_id, comment from spu where id = #{productId}
+    </select>
+
+    <insert id="add">
+        insert into spu (title, description, brand_id, category_id) values(#{title}, #{description}, #{brandId}, #{categoryId});
     </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select  id, title, description, brand_id, category_id, comment from spu
+    </select>
+
 
 </mapper>

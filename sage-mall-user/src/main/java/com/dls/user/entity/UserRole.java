@@ -1,11 +1,14 @@
-package com.dls.product.entity.mysql;
+package com.dls.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * @author 张金行
@@ -18,13 +21,13 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("spu")
-public class Product implements Serializable {
+@TableName("user_role")
+public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
+    @TableId
     private Long id;
-    private String title;
-    private String description;
-    private Long brandId;
-    private Long categoryId;
-    private String comment;
+    @TableField("user_id")
+    private Long userId;
+    @TableField("role_id")
+    private Long roleId;
 }

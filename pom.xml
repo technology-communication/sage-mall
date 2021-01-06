@@ -30,7 +30,7 @@
         <!--框架版本-->
         <spring-boot.version>2.2.10.RELEASE</spring-boot.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
-        <mybatis-plus.version>3.1.0</mybatis-plus.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <druid-boot-starter.version>1.1.13</druid-boot-starter.version>
         <velocity-engine.version>2.0</velocity-engine.version>
         <freemarker.version>2.3.30</freemarker.version>

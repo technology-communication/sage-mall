@@ -34,6 +34,7 @@
         <druid-boot-starter.version>1.1.13</druid-boot-starter.version>
         <velocity-engine.version>2.0</velocity-engine.version>
         <freemarker.version>2.3.30</freemarker.version>
+        <dockerfile.version>1.4.9</dockerfile.version>
     </properties>
 
     <!-- 配置环境 -->
@@ -58,6 +59,71 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <!-- 环境配置 -->
+                <profiles.active>dev</profiles.active>
+                <!-- 配置nacos地址 -->
+                <nacos.address>39.105.154.216:8848</nacos.address>
+                <!-- 子项目版本号 -->
+                <sage-mall-dependencies.version>1.0-SNAPSHOT</sage-mall-dependencies.version>
+                <sage-mall-common.version>1.0-SNAPSHOT</sage-mall-common.version>
+                <sage-mall-order.version>1.0-SNAPSHOT</sage-mall-order.version>
+                <sage-mall-productDocument.version>1.0-SNAPSHOT</sage-mall-productDocument.version>
+                <sage-mall-user.version>1.0-SNAPSHOT</sage-mall-user.version>
+                <sage-mall-web.version>1.0-SNAPSHOT</sage-mall-web.version>
+            </properties>
+            <build>
+                <!--如果不设置resource 会导致application.yaml中的@@找不到pom文件中的配置-->
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <mainClass>com.dls.web.WebApplication</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.spotify</groupId>
+                            <artifactId>dockerfile-maven-plugin</artifactId>
+                            <version>${dockerfile.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>default</id>
+                                    <goals>
+                                        <goal>build</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <!-- 上下文路径配置，此处设置为项目根路径 用来读取Dockerfile-->
+                                <contextDirectory>${project.basedir}</contextDirectory>
+                                <!--使用maven setting认证-->
+                                <!--<useMavenSettingsForAuth>true</useMavenSettingsForAuth>-->
+                                <!--子用户名@企业别名 或 子用户名@主账号UID-->
+                                <!--                    <username>镜像仓库用户名</username>-->
+                                <!--                    &lt;!&ndash;在容器镜像服务控制台"设置Registry登陆密码"&ndash;&gt;-->
+                                <!--                    <password>镜像仓库密码</password>-->
+                                <!--                    &lt;!&ndash;上传的仓库路径 registry.cn-hangzhou.aliyuncs.com/namespace/repositoryname&ndash;&gt;可以docker里设置-->
+                                <repository>${project.groupId}/${project.artifactId}</repository>
+                                <!--如果是latest则默认生成最新tag号-->
+                                <tag>latest</tag>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
         </profile>
     </profiles>
 
